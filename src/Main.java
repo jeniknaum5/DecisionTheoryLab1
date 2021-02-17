@@ -19,22 +19,20 @@ public class Main {
         for (int i = 0; i < arrayList.size(); i++) {
             q1.add(arrayList.get(i) / 10); //добавляем первую цифру каждого эл-та в массив
             q2.add(arrayList.get(i) % 10); //добавляем вторую цифру каждого эл-та в массив
-            OutputPareto.add(0);         //заполняем выходной массив нулями
+            OutputPareto.add(0);           //заполняем выходной массив нулями
         }
+        System.out.print("Q1: ");
         for (Integer integer : q1) {
             System.out.print(integer + " ");
         }
-        System.out.println();
+        System.out.print("\nQ2: ");
         for (Integer integer : q2) {
-            System.out.print(integer + " ");
-        }
-        System.out.println();
-        for (Integer integer : OutputPareto) {
             System.out.print(integer + " ");
         }
 
         for (int i = 0; i < arrayList.size(); i++) {
             for (int j = i + 1; j < arrayList.size(); j++) {
+                //алгоритм доминирования за Парето
                 if (OutputPareto.get(i) > 0)
                     break;
                 if (OutputPareto.get(j) > 0)
@@ -50,9 +48,12 @@ public class Main {
                 }
             }
         }
-        System.out.println();
+        System.out.println("\nДоминирует за Парето");
+
         for (Integer integer : OutputPareto) {
-            System.out.print(integer + " ");
+            if (integer == 0)
+                System.out.print(" * ");
+            else System.out.print("A" + integer + " ");
         }
     }
 
@@ -64,22 +65,12 @@ public class Main {
         for (int i = 0; i < arrayList.size(); i++) {
             q1.add(arrayList.get(i) / 10); //добавляем первую цифру каждого эл-та в массив
             q2.add(arrayList.get(i) % 10); //добавляем вторую цифру каждого эл-та в массив
-            OutputSlater.add(0);         //заполняем выходной массив нулями
-        }
-        for (Integer integer : q1) {
-            System.out.print(integer + " ");
-        }
-        System.out.println();
-        for (Integer integer : q2) {
-            System.out.print(integer + " ");
-        }
-        System.out.println();
-        for (Integer integer : OutputSlater) {
-            System.out.print(integer + " ");
+            OutputSlater.add(0);           //заполняем выходной массив нулями
         }
 
         for (int i = 0; i < arrayList.size(); i++) {
             for (int j = i + 1; j < arrayList.size(); j++) {
+                //алгоритм доминирования за Слейтером
                 if (OutputSlater.get(i) > 0)
                     break;
                 if (OutputSlater.get(j) > 0)
@@ -95,9 +86,11 @@ public class Main {
                 }
             }
         }
-        System.out.println();
+        System.out.println("\nДоминирует за Слейтером");
         for (Integer integer : OutputSlater) {
-            System.out.print(integer + " ");
+            if (integer == 0)
+                System.out.print(" * ");
+            else System.out.print("A" + integer + " ");
         }
     }
 
@@ -115,21 +108,39 @@ public class Main {
         ArrayList<Integer> RowOfInput = new ArrayList<>();
 
         //запускаем цикл в 3 итерации (каждая итерация на ряд входных данных)
-        //for (int j = 0; j<3; j++){}
-        //заполняем ряд значениями
-        System.out.println("\n|||Ряд №1|||");
-        for (int i = 0; i < 20; i++) {
-            RowOfInput.add(i, inputs[0][i]);
-            System.out.print(RowOfInput.get(i) + " ");
+        for (int j = 0; j < 3; j++) {
+            System.out.println("\n|||Ряд #" + (j + 1) + "|||");
+            //заполняем ряд значениями
+            for (int i = 0; i < 20; i++) {
+                RowOfInput.add(i, inputs[j][i]);
+                System.out.print(RowOfInput.get(i) + " ");
+            }
+            System.out.println();
+            System.out.println("\n//////////////////////////////");
+
+            ParetoMeth(RowOfInput);
+            SlaterMeth(RowOfInput);
+            RowOfInput.clear();
+            System.out.println("\n//////////////////////////////\n");
         }
+
+        System.out.println("\n|||Для всього ряду|||");
+        //заполняем ряд значениями
+        for (int j=0; j< 3; j++){
+            for (int i = 0; i < 20; i++) {
+                RowOfInput.add(i, inputs[j][i]);
+                System.out.print(RowOfInput.get(i) + " ");
+            }
+        }
+
         System.out.println();
-
-
-        System.out.println("\n/////////////");
+        System.out.println("\n//////////////////////////////");
 
         ParetoMeth(RowOfInput);
-        System.out.println();
         SlaterMeth(RowOfInput);
+        RowOfInput.clear();
+        System.out.println("\n//////////////////////////////\n");
+
 
     }
 }
