@@ -16,10 +16,10 @@ public class Main {
         ArrayList<Integer> q2 = new ArrayList<>();
         ArrayList<Integer> OutputPareto = new ArrayList<>();
 
-        for (int i = 0; i<arrayList.size(); i++){
-           q1.add(arrayList.get(i)/10); //добавляем первую цифру каждого эл-та в массив
-           q2.add(arrayList.get(i)%10); //добавляем вторую цифру каждого эл-та в массив
-           OutputPareto.add(0);         //заполняем выходной массив нулями
+        for (int i = 0; i < arrayList.size(); i++) {
+            q1.add(arrayList.get(i) / 10); //добавляем первую цифру каждого эл-та в массив
+            q2.add(arrayList.get(i) % 10); //добавляем вторую цифру каждого эл-та в массив
+            OutputPareto.add(0);         //заполняем выходной массив нулями
         }
         for (Integer integer : q1) {
             System.out.print(integer + " ");
@@ -27,6 +27,28 @@ public class Main {
         System.out.println();
         for (Integer integer : q2) {
             System.out.print(integer + " ");
+        }
+        System.out.println();
+        for (Integer integer : OutputPareto) {
+            System.out.print(integer + " ");
+        }
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            for (int j = i + 1; j < arrayList.size(); j++) {
+                if (OutputPareto.get(i) > 0)
+                    break;
+                if (OutputPareto.get(j) > 0)
+                    continue;
+
+                if (q1.get(i).equals(q1.get(j)) && q2.get(i).equals(q2.get(j)))
+                    OutputPareto.set(j, 0);
+                else if (q1.get(i) >= q1.get(j) && q2.get(i) >= q2.get(j))
+                    OutputPareto.set(j, i + 1);
+                else if (q1.get(i) <= q1.get(j) && q2.get(i) <= q2.get(j)) {
+                    OutputPareto.set(i, j + 1);
+                    break;
+                }
+            }
         }
         System.out.println();
         for (Integer integer : OutputPareto) {
