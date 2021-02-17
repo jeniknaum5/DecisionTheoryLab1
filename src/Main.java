@@ -56,8 +56,49 @@ public class Main {
         }
     }
 
-    public static void SlaterMeth(int[] res) {
+    public static void SlaterMeth(ArrayList<Integer> arrayList) {
+        ArrayList<Integer> q1 = new ArrayList<>();
+        ArrayList<Integer> q2 = new ArrayList<>();
+        ArrayList<Integer> OutputSlater = new ArrayList<>();
 
+        for (int i = 0; i < arrayList.size(); i++) {
+            q1.add(arrayList.get(i) / 10); //добавляем первую цифру каждого эл-та в массив
+            q2.add(arrayList.get(i) % 10); //добавляем вторую цифру каждого эл-та в массив
+            OutputSlater.add(0);         //заполняем выходной массив нулями
+        }
+        for (Integer integer : q1) {
+            System.out.print(integer + " ");
+        }
+        System.out.println();
+        for (Integer integer : q2) {
+            System.out.print(integer + " ");
+        }
+        System.out.println();
+        for (Integer integer : OutputSlater) {
+            System.out.print(integer + " ");
+        }
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            for (int j = i + 1; j < arrayList.size(); j++) {
+                if (OutputSlater.get(i) > 0)
+                    break;
+                if (OutputSlater.get(j) > 0)
+                    continue;
+
+                if (q1.get(i).equals(q1.get(j)) && q2.get(i).equals(q2.get(j)))
+                    OutputSlater.set(j, 0);
+                else if (q1.get(i) > q1.get(j) && q2.get(i) > q2.get(j))
+                    OutputSlater.set(j, i + 1);
+                else if (q1.get(i) < q1.get(j) && q2.get(i) < q2.get(j)) {
+                    OutputSlater.set(i, j + 1);
+                    break;
+                }
+            }
+        }
+        System.out.println();
+        for (Integer integer : OutputSlater) {
+            System.out.print(integer + " ");
+        }
     }
 
     public static void main(String[] args) {
@@ -87,6 +128,8 @@ public class Main {
         System.out.println("\n/////////////");
 
         ParetoMeth(RowOfInput);
+        System.out.println();
+        SlaterMeth(RowOfInput);
 
     }
 }
